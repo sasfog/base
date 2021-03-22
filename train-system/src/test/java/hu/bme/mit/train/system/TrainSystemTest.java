@@ -74,7 +74,7 @@ public class TrainSystemTest {
 		Assert.assertTrue(tachograph.isEmpty());
 		tachograph.recordData();
 		Assert.assertFalse(tachograph.isEmpty());
-		Assert.assertEquals(tachograph.getData(), 1);
+		Assert.assertEquals( 1, tachograph.getData());
 		user.overrideJoystickPosition(5);
 		sensor.overrideSpeedLimit(10);
 		tachograph.recordData();
@@ -83,59 +83,7 @@ public class TrainSystemTest {
 		sensor.overrideSpeedLimit(5);
 		tachograph.recordData();
 
-		Assert.assertEquals(tachograph.getData(), 3);
+		Assert.assertEquals(3, tachograph.getData());
 	}
 
-	@Test
-	public void TestRunner() throws InterruptedException{
-		Assert.assertEquals(0,controller.getReferenceSpeed());
-		user.overrideJoystickPosition(1);
-		runner.schedule(1000);
-		Thread.sleep(2000);
-		Assert.assertEquals(2, controller.getReferenceSpeed());
-		Thread.sleep(2000);
-		Assert.assertEquals(4, controller.getReferenceSpeed());
-
-	}
-
-	@Test
-	public void TestExpectedBehaviour() throws InterruptedException{
-		//t0
-		Assert.assertEquals(0,controller.getReferenceSpeed());
-		Assert.assertEquals(0, user.getJoystickPosition());
-
-
-		// t1-t3
-		user.overrideJoystickPosition(1);
-		controller.setSpeedLimit(2);
-		runner.schedule(1000);
-		Thread.sleep(1000);
-		Assert.assertEquals(1, controller.getReferenceSpeed());
-		Thread.sleep(1000);
-		Assert.assertEquals(2, controller.getReferenceSpeed());
-		Thread.sleep(1000);
-		Assert.assertEquals(2, controller.getReferenceSpeed());
-
-		// t4-t5
-		user.overrideJoystickPosition(0);
-		Thread.sleep(1000);
-		Assert.assertEquals(2, controller.getReferenceSpeed());
-		Thread.sleep(1000);
-		Assert.assertEquals(2, controller.getReferenceSpeed());
-
-		// t6
-		user.overrideJoystickPosition(-1);
-		Thread.sleep(1000);
-		Assert.assertEquals(1, controller.getReferenceSpeed());
-
-		// t7
-		user.overrideJoystickPosition(0);
-		Thread.sleep(1000);
-		Assert.assertEquals(1, controller.getReferenceSpeed());
-
-		// t8
-		Thread.sleep(1000);
-		Assert.assertEquals(1, controller.getReferenceSpeed());
-
-	}
 }

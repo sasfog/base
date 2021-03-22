@@ -29,10 +29,10 @@ public class TrainSensorImpl implements TrainSensor {
 		}
 		else {
 			user.setAlarmFlag(false);
-			this.speedLimit = speedLimit;
-			controller.setSpeedLimit(speedLimit);
-		}
 
+		}
+		this.speedLimit = speedLimit;
+		controller.setSpeedLimit(speedLimit);
 	}
 
 	private boolean isOverAbsoluteMargin(int newSpeedLimit){

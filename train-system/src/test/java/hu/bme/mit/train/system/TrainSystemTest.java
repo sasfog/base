@@ -1,14 +1,14 @@
 package hu.bme.mit.train.system;
 
-import hu.bme.mit.train.interfaces.TrainTachograph;
+import hu.bme.mit.train.interfaces.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import hu.bme.mit.train.interfaces.TrainController;
-import hu.bme.mit.train.interfaces.TrainSensor;
-import hu.bme.mit.train.interfaces.TrainUser;
 import hu.bme.mit.train.system.TrainSystem;
+
+import java.util.Date;
+import java.util.Timer;
 
 public class TrainSystemTest {
 
@@ -16,6 +16,7 @@ public class TrainSystemTest {
 	TrainSensor sensor;
 	TrainUser user;
 	TrainTachograph tachograph;
+	TrainRunner runner;
 	
 	@Before
 	public void before() {
@@ -24,6 +25,7 @@ public class TrainSystemTest {
 		sensor = system.getSensor();
 		user = system.getUser();
 		tachograph = system.getTachograph();
+		runner = system.getRunner();
 
 		sensor.overrideSpeedLimit(50);
 	}
@@ -72,7 +74,7 @@ public class TrainSystemTest {
 		Assert.assertTrue(tachograph.isEmpty());
 		tachograph.recordData();
 		Assert.assertFalse(tachograph.isEmpty());
-		Assert.assertEquals(tachograph.getData(), 1);
+		Assert.assertEquals( 1, tachograph.getData());
 		user.overrideJoystickPosition(5);
 		sensor.overrideSpeedLimit(10);
 		tachograph.recordData();
@@ -81,8 +83,7 @@ public class TrainSystemTest {
 		sensor.overrideSpeedLimit(5);
 		tachograph.recordData();
 
-		Assert.assertEquals(tachograph.getData(), 3);
+		Assert.assertEquals(3, tachograph.getData());
 	}
 
-	
 }
